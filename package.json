@@ -1,0 +1,23 @@
+{
+  "name": "sbk_assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stingblue/sbk_assignment.git"
+  },
+  "author": "Thanh Vo <thanh.vt2707@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stingblue/sbk_assignment/issues"
+  },
+  "homepage": "https://github.com/stingblue/sbk_assignment#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.1"
+  }
+}
