@@ -213,7 +213,7 @@ function outputResponse(outputType, response, outputPath) {
 		return filename;
 	}
 	else if(outputType == 'writableStream') {
-		stream = require('stream');
+		var stream = require('stream');
 		var ws = new stream.Writable({
 		  write: function(chunk, encoding, callback) {
 			//console.log(chunk.toString());
