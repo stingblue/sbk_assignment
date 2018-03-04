@@ -98,8 +98,13 @@ A small library that scan 1 html and output validation
 ## Tests
 	
    git clone https://github.com/stingblue/sbk_assignment.git
+   
    npm install mocha
+   
    npm install chai
+   
    npm install sinon
+   
+   npm install cheerio
  
    npm test
