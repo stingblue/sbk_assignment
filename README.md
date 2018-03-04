@@ -20,7 +20,7 @@ A small library that scan 1 html and output validation
 	Example:
 	rulesCheck.handleHtmlFile("contents.html", "file", "output.txt")
 	==============================================
-	# GET Wriable stream
+	# GET Writable stream
 	var ws = rulesCheck.handleHtmlFile("contents.html", "readableStream")
 	
 	==============================================
