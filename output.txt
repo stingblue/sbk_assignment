@@ -1,0 +1,7 @@
+There are 3 <img> tag without undefined attribute
+There are 0 <a> tag without rel attribute
+This HTML without <title> tag
+There are 0 <head> tag without name attribute
+There are 0 <head> tag without name attribute
+This HTML not have more than 15 <strong> tag
+This HTML have more than 1 <h1> tag
