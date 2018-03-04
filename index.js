@@ -56,6 +56,7 @@ module.exports = {
  */
 function setConfig(config) {
 	rules_config = config;
+	return true;
 }
 
 /**
@@ -88,10 +89,10 @@ function checkRules(data) {
 					var attribute = obj.attribute;
 					
 					var dom = check == 'without' ? tag + ":not([" + attribute : tag + "[" + attribute;
-					var tag_msg = ' <' + tag + '>';
+					var tag_msg = '<' + tag + '>';
 					if(typeof obj.children != "undefined") {
 						dom = check == 'without' ? tag + " "  + obj.children + ":not([" + attribute : tag + " "  + obj.children + "[" + attribute;
-						tag_msg = ' <' + obj.children + '>';
+						tag_msg = '<' + obj.children + '>';
 					}
 					
 					if(typeof value != "undefined") {
@@ -105,10 +106,10 @@ function checkRules(data) {
 					switch(check) {
 						case "without":
 							if(typeof value != "undefined") {
-								res += "There are " + count_match + tag_msg + " tag without " + attribute + " attribute value equals " + value + "\n";
+								res += "There are " + count_match + " " + tag_msg + " tag without " + attribute + " attribute value equals " + value + "\n";
 							}
 							else {
-								res += "There are " + count_match + tag_msg + " tag without " + attribute + " attribute\n";
+								res += "There are " + count_match + " " + tag_msg + " tag without " + attribute + " attribute\n";
 							}
 							break;
 						case "exists":
@@ -211,7 +212,7 @@ function outputResponse(outputType, response, outputPath) {
 		});
 		return filename;
 	}
-	else if(outputType == 'readableStream') {
+	else if(outputType == 'writableStream') {
 		stream = require('stream');
 		var ws = new stream.Writable({
 		  write: function(chunk, encoding, callback) {
@@ -223,9 +224,11 @@ function outputResponse(outputType, response, outputPath) {
 		//ws.end();
 		return ws;
 	}
+	else if(outputType == 'test') {
+		return response;
+	}
 	//Default: console
 	console.log(response);
-	return '';
 }
 
 /**
@@ -233,13 +236,17 @@ function outputResponse(outputType, response, outputPath) {
  * @param {string} filepath
  * @param {string} outputType
  * @param {string} outputPath
+ * @param {object} callback
  * @return {mix}
  */
-function handleHtmlFile (filepath, outputType, outputPath) {
+function handleHtmlFile (filepath, outputType, outputPath, callback) {
 	var fs = require('fs');
 	fs.readFile(filepath, 'utf8', function(err, data) {
 		var response = checkRules(data);
-		return outputResponse(outputType, response, outputPath);
+		var output = outputResponse(outputType, response, outputPath);
+		if (typeof callback != 'undefined'){
+			return callback(output);
+		}	
 	});
 }
 
@@ -248,9 +255,10 @@ function handleHtmlFile (filepath, outputType, outputPath) {
  * @param {string} readerStream
  * @param {string} outputType
  * @param {string} outputPath
+ * @param {object} callback
  * @return {mix}
  */
-function handleReadableStream(readerStream, outputType, outputPath) {
+function handleReadableStream(readerStream, outputType, outputPath, callback) {
 	// Set the encoding to be utf8. 
 	readerStream.setEncoding('UTF8');
 	
@@ -259,9 +267,13 @@ function handleReadableStream(readerStream, outputType, outputPath) {
 	readerStream.on('data', function(chunk) {
 		data+=chunk;
 	});
+
 	// Handle stream events --> data, end, and error
 	readerStream.on('end', function() {
 		var response = checkRules(data);
-	    return outputResponse(outputType, response, outputPath);
+	    var output = outputResponse(outputType, response, outputPath);
+		if (typeof callback != 'undefined'){
+			return callback(output);
+		}	 
 	});
 }

@@ -14,19 +14,21 @@ A small library that scan 1 html and output validation
 	
 	==============================================
 	#When input is html file
-	#handleHtmlFile(filepath, outputType, outputPath)
-	#outputType => 'file' || 'console' || 'readableStream'
+	#handleHtmlFile(filepath, outputType, outputPath, callback)
+	#outputType => 'file' || 'console' || 'writableStream'
 	
 	Example:
 	rulesCheck.handleHtmlFile("contents.html", "file", "output.txt")
 	==============================================
-	# GET Writable stream
-	var ws = rulesCheck.handleHtmlFile("contents.html", "readableStream")
+	# GET Writable stream data
+	rulesCheck.handleHtmlFile("contents.html", "writableStream", "", function(stream) {
+		//do here;
+	});
 	
 	==============================================
 	#When input is ReadableStream
-	#handleReadableStream(ReadableStream, outputType, outputPath)
-	#outputType => 'file' || 'console' || 'readableStream'
+	#handleReadableStream(ReadableStream, outputType, outputPath, callback)
+	#outputType => 'file' || 'console' || 'writableStream'
 	Example:
 	var fs = require('fs');
 	var data = '';
@@ -84,7 +86,7 @@ A small library that scan 1 html and output validation
 	==============================================
 	#SET NEW config
 	
-	var config = {img: [{attribute:'name', 'value': 'img1', 'check': 'exists'}], h1: [{'check': 'greater', 'value': 1}], img: [{'attribute': 'alt', 'check': 'without'}]};
+	var config = {a: [{attribute:'name', 'value': 'a1', 'check': 'exists'}], h1: [{'check': 'greater', 'value': 1}], img: [{'attribute': 'alt', 'check': 'without'}]};
 	rulesCheck.setConfig(config);
 	------------------
 	#MODIFY exists config
@@ -92,10 +94,12 @@ A small library that scan 1 html and output validation
 	var config = rulesCheck.getConfig();
 	config.img = [{'attribute': 'alt', 'check': 'exists'}];
 	rulesCheck.setConfig(config);
+
 ## Tests
-
-  `npm test`
-
-## Contributing
-
-In lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code.
+	
+   git clone https://github.com/stingblue/sbk_assignment.git
+   npm install mocha
+   npm install chai
+   npm install sinon
+ 
+   npm test

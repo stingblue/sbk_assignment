@@ -1,3 +1,12 @@
 <html
-<h1></h1>
+	<body>
+		<h1>My First Heading</h1>
+		<h1 name='heading1'>My second Heading</h1>
+		<p>My first paragraph.</p>
+		<img alt='img1'>My first image.</img>
+		<img>My second image.</img>
+		<img>My thirth image.</img>
+		<img>My fourth image.</img>
+		<a>My a.</a>
+	</body>
 </html>
